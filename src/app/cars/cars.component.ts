@@ -22,7 +22,16 @@ export class CarsComponent implements OnInit {
   getCars(): void {
     this.carService.getCars()
       .subscribe(cars => {
-         this.cars = cars.content;
-        });
+        this.cars = cars.content;
+      });
+  }
+
+  delete(id: number): void {
+    this.messageService.add(`deleting car with id ${id}`);
+    this.carService.deleteCar(id).subscribe(
+      () => {
+        this.cars = this.cars.filter(c => c.id !== id);
+      }
+    );
   }
 }

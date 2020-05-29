@@ -31,12 +31,22 @@ export class CarService {
   }
 
   getCar(id: number): Observable<Car> {
-      const url = `${this.carsUrl}/${id}`;
-      return this.http.get<Car>(url).pipe(
-        tap(_ => this.log(`fetched car id=${id}`)),
-        catchError(this.handleError<Car>(`getCar id=${id}`))
-      );
-    }
+    const url = `${this.carsUrl}/${id}`;
+    return this.http.get<Car>(url).pipe(
+      tap(_ => this.log(`fetched car id=${id}`)),
+      catchError(this.handleError<Car>(`getCar id=${id}`))
+    );
+  }
+
+  deleteCar(carId: number): Observable<any> {
+    const id = carId;
+    const url = `${this.carsUrl}/${id}`;
+
+    return this.http.delete(url).pipe(
+      tap(_ => this.log(`deleted car id=${id}`)),
+      catchError(this.handleError<Car>('deleteCar'))
+    );
+  }
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
