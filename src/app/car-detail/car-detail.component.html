@@ -1,10 +1,18 @@
 <div *ngIf="car">
-    <h2>{{car.make | uppercase}} Details</h2>
-    <div><span>id: </span>{{car.id}}</div>
-    <div>
-      <label>make:
-        <input [(ngModel)]="car.make" placeholder="make"/>
-      </label>
-    </div>
-    <button (click)="goBack()">go back</button>
+  <h2>{{car.make | uppercase}} Details</h2>
+  <div><span>id: </span>{{car.id}}</div>
+  <div>
+    <label>make:
+      <input [(ngModel)]="car.make" placeholder="make" />
+    </label>
+    <br>
+    <label>model:
+      <input [(ngModel)]="car.model" placeholder="model" />
+    </label>
+    <br>
+    <label>colour:
+      {{car.colour}}
+    </label>
   </div>
+  <button (click)="goBack()">go back</button>
+</div>
