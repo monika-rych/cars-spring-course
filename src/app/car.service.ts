@@ -3,7 +3,6 @@ import { Car } from './car';
 import { CarWithLinks } from "./CarWithLinks";
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
-import { CARS } from './mock-cars';
 import { MessageService } from './message.service';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 
@@ -32,10 +31,12 @@ export class CarService {
   }
 
   getCar(id: number): Observable<Car> {
-    // TODO: send the message _after_ fetching the car
-    this.messageService.add(`CarService: fetched car id=${id}`);
-    return of(CARS.find(car => car.id === id));
-  }
+      const url = `${this.carsUrl}/${id}`;
+      return this.http.get<Car>(url).pipe(
+        tap(_ => this.log(`fetched car id=${id}`)),
+        catchError(this.handleError<Car>(`getCar id=${id}`))
+      );
+    }
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
