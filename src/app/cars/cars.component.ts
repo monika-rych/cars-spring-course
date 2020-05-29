@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Car } from '../car';
-import { CarService} from '../car.service';
-import {MessageService} from '../message.service';
+import { CarService } from '../car.service';
+import { MessageService } from '../message.service';
 
 
 @Component({
@@ -10,8 +10,8 @@ import {MessageService} from '../message.service';
   styleUrls: ['./cars.component.css']
 })
 export class CarsComponent implements OnInit {
-  
-   cars: Car[]; 
+
+  cars: Car[];
 
   constructor(private carService: CarService, private messageService: MessageService) { }
 
@@ -21,6 +21,8 @@ export class CarsComponent implements OnInit {
 
   getCars(): void {
     this.carService.getCars()
-    .subscribe(cars => this.cars = cars);
+      .subscribe(cars => {
+         this.cars = cars.content;
+        });
   }
 }
