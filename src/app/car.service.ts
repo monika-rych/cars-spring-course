@@ -38,6 +38,13 @@ export class CarService {
     );
   }
 
+  save(car: Car): Observable<any> {
+    return this.http.post(this.carsUrl, car).pipe(
+      tap(_ => this.log(`posted car id=${car.id}`)),
+      catchError(this.handleError<Car>('post Car'))
+    );
+  }
+
   deleteCar(carId: number): Observable<any> {
     const id = carId;
     const url = `${this.carsUrl}/${id}`;
