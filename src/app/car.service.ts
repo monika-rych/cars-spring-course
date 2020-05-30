@@ -45,6 +45,13 @@ export class CarService {
     );
   }
 
+  update(car: Car): Observable<any> {
+    return this.http.put(this.carsUrl, car).pipe(
+      tap(_ => this.log(`puted car id=${car.id}`)),
+      catchError(this.handleError<Car>('put Car'))
+    );
+  }
+
   deleteCar(carId: number): Observable<any> {
     const id = carId;
     const url = `${this.carsUrl}/${id}`;

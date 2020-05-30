@@ -3,6 +3,7 @@ import { Car } from '../car';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { CarService }  from '../car.service';
+import { MessageService } from '../message.service';
 
 @Component({
   selector: 'app-car-detail',
@@ -15,7 +16,8 @@ export class CarDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private carService: CarService,
-    private location: Location
+    private location: Location,
+    private messageService: MessageService
   ) { }
 
   ngOnInit(): void {
@@ -30,6 +32,14 @@ export class CarDetailComponent implements OnInit {
   
   goBack(): void {
     this.location.back();
+  }
+  
+  public update(): void {
+    this.carService.update(this.car).subscribe(
+      () => {
+        this.messageService.add(`car with id ${this.car.id} updated!`);
+      }
+    );
   }
 }
 
